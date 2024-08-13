@@ -37,12 +37,16 @@ public class Album extends DataPoint {
         List<Album> albums = getAlbums();
 
         int counter = 0;
-        int iterations = 100;
+        int iterations = 1000;
 
         for (int i = 0; i < iterations; i++) {
             List<KMeans<Album>.Cluster> clusters = getClusters(2, albums);
             for (KMeans<Album>.Cluster cluster : clusters) {
-                if (cluster.points.size() == 1 && cluster.points.get(0).getName().equals("HIStory: Past, Present and Future, Book I")) {
+                if (cluster.points.size() == 3
+                        && (cluster.points.stream().anyMatch(x -> x.getName().equals("HIStory: Past, Present and Future, Book I")
+                        || x.getName().equals("Invincible")
+                        || x.getName().equals("Dangerous")))
+                ) {
                     counter++;
                     break;
                 }
