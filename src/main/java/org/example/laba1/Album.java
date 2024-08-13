@@ -35,18 +35,14 @@ public class Album extends DataPoint {
 
     public static void main(String[] args) {
         List<Album> albums = getAlbums();
+        List<KMeans<Album>.Cluster> clusters = getClusters(2, albums);
 
-        for (int i = 0; i < 10; i++) {
-            List<KMeans<Album>.Cluster> clusters = getClusters(2, albums);
-
-            for (int clusterIndex = 0; clusterIndex < clusters.size();
-                 clusterIndex++) {
-                System.out.printf("Cluster %d Avg Length %f Avg Tracks %f: %s%n",
-                        clusterIndex, clusters.get(clusterIndex).centroid.dimensions.get(0),
-                        clusters.get(clusterIndex).centroid.dimensions.get(1),
-                        clusters.get(clusterIndex).points);
-            }
-            System.out.println("\n\n");
+        for (int clusterIndex = 0; clusterIndex < clusters.size();
+             clusterIndex++) {
+            System.out.printf("Cluster %d Avg Length %f Avg Tracks %f: %s%n",
+                    clusterIndex, clusters.get(clusterIndex).centroid.dimensions.get(0),
+                    clusters.get(clusterIndex).centroid.dimensions.get(1),
+                    clusters.get(clusterIndex).points);
         }
     }
 
