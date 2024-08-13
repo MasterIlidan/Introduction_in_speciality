@@ -36,22 +36,7 @@ public class Album extends DataPoint {
     public static void main(String[] args) {
         List<Album> albums = getAlbums();
 
-        int counter = 0;
-        int iterations = 100;
-
-        for (int i = 0; i < iterations; i++) {
-            List<KMeans<Album>.Cluster> clusters = getClusters(2, albums);
-            for (KMeans<Album>.Cluster cluster : clusters) {
-                if (cluster.points.size() == 1 && cluster.points.get(0).getName().equals("HIStory: Past, Present and Future, Book I")) {
-                    counter++;
-                    break;
-                }
-            }
-        }
-        System.out.printf("Iterations: %d\n", iterations);
-        System.out.printf("Longest album is alone in the cluster: %d\n", counter);
-        System.out.printf("%d/%d\n", counter, iterations);
-        /*for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             List<KMeans<Album>.Cluster> clusters = getClusters(2, albums);
 
             for (int clusterIndex = 0; clusterIndex < clusters.size();
@@ -62,7 +47,7 @@ public class Album extends DataPoint {
                         clusters.get(clusterIndex).points);
             }
             System.out.println("\n\n");
-        }*/
+        }
     }
 
     public static List<KMeans<Album>.Cluster> getClusters(int iterations, List<Album> albums) {
