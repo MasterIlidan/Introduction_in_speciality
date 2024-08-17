@@ -12,25 +12,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AlbumTest {
 
-    @BeforeEach
-    void setUp() {
-
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void main() {
-
-    }
-
     @Test
     void getClusters() {
         final int points_size = 1;
         final String name = "HIStory: Past, Present and Future, Book I";
-        boolean testpassed = false;
+        double expected = 0.75;
+        int actual = 0;
+        int countOfRuns = 100;
+        boolean testPassed = false;
 
         List<Album> albums = new ArrayList<>();
         albums.add(new Album("Got to Be There", 1972, 35.45, 10));
@@ -45,15 +34,25 @@ class AlbumTest {
                 148.58, 30));
         albums.add(new Album("Invincible", 2001, 77.05, 16));
 
-        List<KMeans<Album>.Cluster> clusters = Album.getClusters(2, albums);
+        for (int run = 0; run < countOfRuns; run++) {
+            List<KMeans<Album>.Cluster> clusters = Album.getClusters(2, albums);
 
-        for (KMeans<Album>.Cluster cluster : clusters) {
-            if (cluster.points.size() == points_size && cluster.points.get(0).getName().equals(name)) {
-                testpassed = true;
-                break;
+            for (KMeans<Album>.Cluster cluster : clusters) {
+                if (cluster.points.size() == points_size && cluster.points.get(0).getName().equals(name)) {
+                    actual++;
+                    break;
+                }
             }
         }
 
-        assertTrue(testpassed);
+        System.out.printf("Count of runs: %d\n", countOfRuns);
+        System.out.printf("Success: %f percent\n", (double) actual / countOfRuns * 100);
+
+        if ((double) actual / countOfRuns > expected) {
+            testPassed = true;
+        }
+
+
+        assertTrue(testPassed);
     }
 }
