@@ -2,38 +2,12 @@ package org.example.laba2;
 
 import java.util.ArrayList;
 import java.util.Stack;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Converter {
     static ArrayList<Integer> divideResults = new ArrayList<>();
     static Stack<Integer> divideReceives = new Stack<>();
-    static Logger log = Logger.getLogger(Converter.class.getName());
 
     static ArrayList<Integer> multiplyResults = new ArrayList<>();
-
-    public static void main(String[] args) {
-        log.setLevel(Level.INFO);
-
-        ConsoleHandler handler = new ConsoleHandler();
-        handler.setLevel(Level.ALL);
-        log.addHandler(handler);
-
-        double num = 265.431;
-        int regex = 2;
-
-        System.out.printf("Converting number %f to %d...\n", num, regex);
-        System.out.printf("Result: %s", from10to(num, regex));
-
-        System.out.println("\n\n\n");
-
-        String binary = "10111111";
-        regex = 10;
-
-        System.out.printf("Converting number %s to %d...\n", binary, regex);
-        System.out.printf("Result: %s", from2to10(binary));
-    }
 
     private static void clr() {
         divideReceives.clear();
@@ -51,12 +25,12 @@ public class Converter {
         //1110 = 1 * 2^3 +1* 2^2 +1* 2^1 +0* 2^0 =14
         char[] chars = num.toCharArray();
         int result = 0;
-        int mult = 1;
+        int multiply = 1;
         for (int i = num.length() - 1; i >= 0; i--) {
             if (chars[i] == '1') {
-                result += mult;
+                result += multiply;
             }
-            mult *= 2; //число - исходная система счисления. В теории можно переводить с любой
+            multiply *= 2; //число - исходная система счисления. В теории можно переводить с любой
         }
         return result;
     }
@@ -90,9 +64,6 @@ public class Converter {
             divideResults.add(num);
         } while (num >= regex);
         divideReceives.add(num % regex);
-
-        log.log(Level.FINE, divideResults.toString());
-        log.log(Level.FINE, divideReceives.toString());
 
         StringBuilder result = new StringBuilder();
         while (!divideReceives.isEmpty()) {
