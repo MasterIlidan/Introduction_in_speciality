@@ -24,6 +24,7 @@ public class NormalizedBinaryNumber {
         } else {
             isNumNegative = false;
         }
+
         int exp = getExponent(num); //порядок
         if (exp < 0) {
             isExponentNegative = true;
@@ -33,30 +34,24 @@ public class NormalizedBinaryNumber {
             exponent = exp;
         }
 
+        binaryMantissa = getBinaryMantissa(num, regex);
+        binaryExponent = getBinaryExponent(exp, regex);
+    }
+
+    private String getBinaryMantissa(double num, int regex) {
         String mantissa = Converter.from10to(num * Math.pow(10, exponent * -1), regex);
         mantissa = mantissa.replace("0.", ""); //часть с "0." нам не нужна
         mantissa = formatBynaryString(mantissa, mantissaLength);
         mantissa = isNumNegative ? "1" + mantissa : "0" + mantissa;
-        binaryMantissa = mantissa;
+        return mantissa;
+    }
 
-        String exponentBinary = Converter.from10to(exponent, 2);
+    private String getBinaryExponent(int exponent, int regex) {
+        String exponentBinary = Converter.from10to(exponent, regex);
         exponentBinary = formatBynaryString(exponentBinary, exponentLength);
         exponentBinary = isExponentNegative ? "1" + exponentBinary : "0" + exponentBinary;
-        binaryExponent = exponentBinary;
+        return exponentBinary;
     }
-
-    public int getExponent() {
-        return exponent;
-    }
-
-    public String getBinaryMantissa() {
-        return binaryMantissa;
-    }
-
-    public String getBinaryExponent() {
-        return binaryExponent;
-    }
-
 
     public int getExponent(double num) {
         int exponent = 0;
@@ -87,4 +82,17 @@ public class NormalizedBinaryNumber {
         }
         return binaryBuilder.toString();
     }
+
+    @Override
+    public String toString() {
+        return """
+                Num: %f
+                Exponent: %d
+                %f x 10^%d
+                Binary mantissa: %s
+                Binary exponent: %s
+                """.formatted(num, exponent, num * Math.pow(10, exponent * -1), exponent, binaryMantissa, binaryExponent);
+    }
 }
+
+

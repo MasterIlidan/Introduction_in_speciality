@@ -9,11 +9,7 @@ public class NormalizedBinaryNumberMain {
 
         NormalizedBinaryNumber normalizedBinaryNumber = new NormalizedBinaryNumber(num,
                 mantissaLength, exponentLength);
-        int exponent = normalizedBinaryNumber.getExponent();
-        System.out.println("Num: " + num);
-        System.out.println("Exponent:" + exponent);
 
-        System.out.printf("%f x 10^%d\n", num * Math.pow(10, exponent * -1), exponent);
-        System.out.printf("Binary mantissa: %s\nBinary exponent: %s\n", normalizedBinaryNumber.getBinaryMantissa(), normalizedBinaryNumber.getBinaryExponent());
+        System.out.println(normalizedBinaryNumber);
     }
 }
